@@ -261,6 +261,17 @@ func NewCTMarkMatchField(mark uint32, mask *uint32) *MatchField {
 	return field
 }
 
+func NewPktMarkMatchField(mark uint32, mask *uint32) *MatchField {
+	field, _ := FindFieldHeaderByName("NXM_NX_PKT_MARK", mask != nil)
+
+	field.Value = newUint32Message(mark)
+	if mask != nil {
+		field.Mask = newUint32Message(*mask)
+	}
+
+	return field
+}
+
 type CTLabel struct {
 	data [16]byte
 }
